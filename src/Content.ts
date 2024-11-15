@@ -24,6 +24,7 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
 
     // 1. feladat: Adatok beolvasása, tárolása
     const mo: Solution = new Solution("utca.txt");
+    res.write(`2. feladat. A mintában ${mo.streetTaxesCount} telek szerepel.`)
     const params = new url.URL(req.url as string, `http://${req.headers.host}/`).searchParams;
 
     res.write("</pre></form></body></html>");
