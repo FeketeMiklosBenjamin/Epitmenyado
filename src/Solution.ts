@@ -8,16 +8,18 @@ export default class Solution {
         ["C", 100],
     ]);
 
+    get streetTaxesCount(): number {
+        return this.#streetTaxes.length;
+    }
+
     #streetTaxes: StreetTax[] = [];
 
     constructor(source: string) {
-        fs.readFileSync(source)
-            .toString()
-            .split("\n")
-            .forEach(line => {
-                const actLine: string = line.trim();
-                this.#streetTaxes.push(new StreetTax(actLine));
-            });
+        const datas: string[] = fs.readFileSync(source).toString().trim().split("\n");
+        for (const line of datas.splice(1)) {
+            const actLine: string = line.trim();
+            this.#streetTaxes.push(new StreetTax(actLine));
         }
+    }
     
 }
