@@ -1,6 +1,7 @@
 ﻿import fs from "fs"; // https://nodejs.org/docs/latest-v14.x/api/fs.html
 import http from "http"; // https://nodejs.org/docs/latest-v14.x/api/http.html
 import url from "url"; // https://nodejs.org/docs/latest-v14.x/api/url.html
+import Solution from "./Solution";
 
 export default function content(req: http.IncomingMessage, res: http.ServerResponse): void {
     // favicon.ico kérés kiszolgálása:
@@ -20,7 +21,9 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     res.write("<title>Jedlik Ts Template</title>");
     res.write("</head>");
     res.write("<body><form><pre>");
-    
+
+    // 1. feladat: Adatok beolvasása, tárolása
+    const mo: Solution = new Solution("utca.txt");
     const params = new url.URL(req.url as string, `http://${req.headers.host}/`).searchParams;
 
     res.write("</pre></form></body></html>");
