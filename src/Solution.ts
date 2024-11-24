@@ -37,12 +37,9 @@ export default class Solution {
     ado(distance: string, basicArea: number): number {
         for (const [key, value] of this.distanceMap) {
             if (key == distance) {
-                console.log(value * basicArea);
-
                 return value * basicArea;
             }
-        }
-        console.log("ok");
+        }    
 
         return basicArea;
     }
@@ -72,5 +69,25 @@ export default class Solution {
         }
         uniqueStreets = [...new Set(uniqueStreets)];
         return uniqueStreets;
+    }
+
+    fileWrite(filename: string): void {
+        const fileString: string[] = [];
+
+        let OwnerMap: Map<string, number> = new Map<string, number>();
+        for (const item of this.#streetTaxes) {
+            if (!OwnerMap.has(item.taxExemt)) {
+                OwnerMap.set(item.taxExemt, this.ado(item.distance, item.basicArea))
+            } else {
+                let oldData: number = OwnerMap.get(item.taxExemt) as number;
+                OwnerMap.set(item.taxExemt, this.ado(item.distance, item.basicArea) + oldData);
+            }
+        }
+
+        for (const [key, value] of OwnerMap) {
+            fileString.push(`${key} ${value}`);
+        }
+
+        fs.writeFileSync(filename, fileString.join(`\r\n`));
     }
 }

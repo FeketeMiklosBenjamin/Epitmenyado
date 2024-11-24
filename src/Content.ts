@@ -60,6 +60,9 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
         res.write(`\n${streetName}`);
     }
 
+    // 7. feladat: Fájl írás
+    mo.fileWrite(`fizetendo.txt`);
+
     res.write("</pre></form></body></html>");
     res.end();
 }
