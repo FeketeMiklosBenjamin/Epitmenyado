@@ -53,6 +53,13 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
         res.write(mo.taxCalculatorString(key));
     }
 
+    // 6. feladat: Több sávba sorolt utcák
+    res.write("\n6. feladat. A több sávba sorolt utcák:");
+
+    for (const streetName of mo.moreDistanceTaxedStreet()) {
+        res.write(`\n${streetName}`);
+    }
+
     res.write("</pre></form></body></html>");
     res.end();
 }

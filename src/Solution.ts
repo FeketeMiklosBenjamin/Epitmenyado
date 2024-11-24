@@ -47,7 +47,6 @@ export default class Solution {
         return basicArea;
     }
 
-
     taxCalculatorString(distanceKey: string): string {
         let distanceTaxHousesCount: number = this.#streetTaxes.filter(x => distanceKey == x.distance).length;
         let distanceTaxSum: number = 0;
@@ -57,5 +56,21 @@ export default class Solution {
             }
         }
         return `\n${distanceKey} sávba ${distanceTaxHousesCount} telek esik, az adó ${distanceTaxSum} Ft.`;
+    }
+
+    moreDistanceTaxedStreet(): string[] {
+        let uniqueStreets: string[] = [];
+        let HelperMap: Map<string, string> = new Map<string, string>();
+        for (const item of this.#streetTaxes) {
+            if (!HelperMap.has(item.streetName)) {
+                HelperMap.set(item.streetName, item.distance);
+            } else {
+                if (HelperMap.get(item.streetName) != item.distance) {
+                    uniqueStreets.push(item.streetName);
+                }
+            }
+        }
+        uniqueStreets = [...new Set(uniqueStreets)];
+        return uniqueStreets;
     }
 }
