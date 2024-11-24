@@ -21,5 +21,18 @@ export default class Solution {
             this.#streetTaxes.push(new StreetTax(actLine));
         }
     }
+
+
+    getOwnerHouses(inputTaxExemt: string): Map<string, string> {
+        let ownerHouses: Map<string, string> = new Map<string, string>();
+
+        for (const streetTax of this.#streetTaxes) {
+            if (inputTaxExemt == streetTax.taxExemt) {
+                ownerHouses.set(streetTax.streetName, streetTax.houseNumber);
+            }
+        }
+
+        return ownerHouses;
+    }
     
 }

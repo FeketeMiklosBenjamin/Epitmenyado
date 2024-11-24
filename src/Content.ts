@@ -24,8 +24,27 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
 
     // 1. feladat: Adatok beolvasása, tárolása
     const mo: Solution = new Solution("utca.txt");
-    res.write(`2. feladat. A mintában ${mo.streetTaxesCount} telek szerepel.`)
+
+    // 2. feladat: Telek megszámolása
+    res.write(`2. feladat. A mintában ${mo.streetTaxesCount} telek szerepel.\n`)
     const params = new url.URL(req.url as string, `http://${req.headers.host}/`).searchParams;
+
+    // 3. feladat: Adószám alapján telkek száma
+    let inputTaxExemt: string = params.get("inputTaxExemt") as string;
+    if (inputTaxExemt === null) {
+        inputTaxExemt = "";
+    }
+
+    res.write(`3. feladat. Egy tulajdonos adószáma: <input type='text' name='inputTaxExemt'
+        value='${inputTaxExemt}' style='max-width:100px' onChange='this.form.submit();'>`);
+
+    if (mo.getOwnerHouses(inputTaxExemt).size == 0) {
+        res.write(`\nNem szerepel az adatállományban.`);
+    } else {
+        for (const [key, value] of mo.getOwnerHouses(inputTaxExemt)) {
+            res.write(`\n${key} utca ${value}`);
+        }
+    }
 
     res.write("</pre></form></body></html>");
     res.end();
