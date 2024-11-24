@@ -46,6 +46,13 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
         }
     }
 
+    // 5. feladat: Sávokban a telkek mennyisége és adójuk
+    res.write(`\n5. feladat`);
+
+    for (const [key, value] of mo.distanceMap) {
+        res.write(mo.taxCalculatorString(key));
+    }
+
     res.write("</pre></form></body></html>");
     res.end();
 }

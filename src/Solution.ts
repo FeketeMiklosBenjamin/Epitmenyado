@@ -46,4 +46,16 @@ export default class Solution {
 
         return basicArea;
     }
+
+
+    taxCalculatorString(distanceKey: string): string {
+        let distanceTaxHousesCount: number = this.#streetTaxes.filter(x => distanceKey == x.distance).length;
+        let distanceTaxSum: number = 0;
+        for (const item of this.#streetTaxes) {
+            if (distanceKey == item.distance) {
+                distanceTaxSum += this.ado(distanceKey, item.basicArea);
+            }
+        }
+        return `\n${distanceKey} sávba ${distanceTaxHousesCount} telek esik, az adó ${distanceTaxSum} Ft.`;
+    }
 }
