@@ -2,7 +2,7 @@ import fs from "fs";
 import StreetTax from "./StreetTax";
 
 export default class Solution {
-    #distance: Map<string, number> = new Map<string, number>([
+    distanceMap: Map<string, number> = new Map<string, number>([
         ["A", 800],
         ["B", 600],
         ["C", 100],
@@ -22,7 +22,6 @@ export default class Solution {
         }
     }
 
-
     getOwnerHouses(inputTaxExemt: string): Map<string, string> {
         let ownerHouses: Map<string, string> = new Map<string, string>();
 
@@ -34,5 +33,17 @@ export default class Solution {
 
         return ownerHouses;
     }
-    
+
+    ado(distance: string, basicArea: number): number {
+        for (const [key, value] of this.distanceMap) {
+            if (key == distance) {
+                console.log(value * basicArea);
+
+                return value * basicArea;
+            }
+        }
+        console.log("ok");
+
+        return basicArea;
+    }
 }
