@@ -34,7 +34,7 @@ export default class Solution {
         let distanceTaxSum: number = 0;
         for (const item of this.#streetTaxes) {
             if (distanceKey == item.distance) {
-                distanceTaxSum += item.Tax;
+                distanceTaxSum += Number(item.Tax);
             }
         }
         return `\n${distanceKey} sávba ${distanceTaxHousesCount} telek esik, az adó ${distanceTaxSum} Ft.`;
@@ -62,10 +62,10 @@ export default class Solution {
         let OwnerMap: Map<string, number> = new Map<string, number>();
         for (const item of this.#streetTaxes) {
             if (!OwnerMap.has(item.taxExemt)) {
-                OwnerMap.set(item.taxExemt, item.Tax)
+                OwnerMap.set(item.taxExemt, Number(item.Tax))
             } else {
                 let oldData: number = OwnerMap.get(item.taxExemt) as number;
-                OwnerMap.set(item.taxExemt, item.Tax + oldData);
+                OwnerMap.set(item.taxExemt, Number(item.Tax) + oldData);
             }
         }
 

@@ -32,12 +32,8 @@ export default class StreetTax {
     }
 
     get Tax(): number {
-        for (const [key, value] of StreetTax.distanceMap) {
-            if (key == this.#distance) {
-                return value * this.#basicArea >= 10000 ? value * this.#basicArea : 0;
-            }
-        }
-        return this.#basicArea;
+        const distanceValue = StreetTax.distanceMap.get(this.#distance)!;
+        return distanceValue * this.#basicArea >= 10000 ? distanceValue * this.#basicArea : 0; 
     }
 
     constructor(data: string) {
