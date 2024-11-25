@@ -2,6 +2,7 @@
 import http from "http"; // https://nodejs.org/docs/latest-v14.x/api/http.html
 import url from "url"; // https://nodejs.org/docs/latest-v14.x/api/url.html
 import Solution from "./Solution";
+import StreetTax from "./StreetTax";
 
 export default function content(req: http.IncomingMessage, res: http.ServerResponse): void {
     // favicon.ico kérés kiszolgálása:
@@ -49,7 +50,7 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     // 5. feladat: Sávokban a telkek mennyisége és adójuk
     res.write(`\n5. feladat`);
 
-    for (const [key, value] of mo.distanceMap) {
+    for (const [key, value] of StreetTax.distanceMap) {
         res.write(mo.taxCalculatorString(key));
     }
 

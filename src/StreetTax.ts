@@ -5,6 +5,12 @@ export default class StreetTax {
     #distance: string;
     #basicArea: number;
 
+    static distanceMap: Map<string, number> = new Map<string, number>([
+        ["A", 800],
+        ["B", 600],
+        ["C", 100],
+    ]);
+
     get taxExemt(): string {
         return this.#taxExemt;
     }
@@ -12,7 +18,7 @@ export default class StreetTax {
     get streetName(): string {
         return this.#streetName;
     }
-    
+
     get houseNumber(): string {
         return this.#houseNumber;
     }
@@ -25,6 +31,15 @@ export default class StreetTax {
         return this.#basicArea;
     }
 
+    get Tax(): number {
+        for (const [key, value] of StreetTax.distanceMap) {
+            if (key == this.#distance) {
+                return value * this.#basicArea >= 10000 ? value * this.#basicArea : 0;
+            }
+        }
+        return this.#basicArea;
+    }
+
     constructor(data: string) {
         const m: string[] = data.split(" ");
         this.#taxExemt = m[0];
@@ -33,5 +48,4 @@ export default class StreetTax {
         this.#distance = m[3];
         this.#basicArea = parseInt(m[4]);
     }
-
 }

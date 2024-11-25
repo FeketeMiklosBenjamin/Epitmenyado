@@ -2,11 +2,6 @@ import fs from "fs";
 import StreetTax from "./StreetTax";
 
 export default class Solution {
-    distanceMap: Map<string, number> = new Map<string, number>([
-        ["A", 800],
-        ["B", 600],
-        ["C", 100],
-    ]);
 
     get streetTaxesCount(): number {
         return this.#streetTaxes.length;
@@ -34,22 +29,12 @@ export default class Solution {
         return ownerHouses;
     }
 
-    ado(distance: string, basicArea: number): number {
-        for (const [key, value] of this.distanceMap) {
-            if (key == distance) {
-                return value * basicArea;
-            }
-        }    
-
-        return basicArea;
-    }
-
     taxCalculatorString(distanceKey: string): string {
         let distanceTaxHousesCount: number = this.#streetTaxes.filter(x => distanceKey == x.distance).length;
         let distanceTaxSum: number = 0;
         for (const item of this.#streetTaxes) {
             if (distanceKey == item.distance) {
-                distanceTaxSum += this.ado(distanceKey, item.basicArea);
+                distanceTaxSum += item.Tax;
             }
         }
         return `\n${distanceKey} sávba ${distanceTaxHousesCount} telek esik, az adó ${distanceTaxSum} Ft.`;
@@ -77,10 +62,10 @@ export default class Solution {
         let OwnerMap: Map<string, number> = new Map<string, number>();
         for (const item of this.#streetTaxes) {
             if (!OwnerMap.has(item.taxExemt)) {
-                OwnerMap.set(item.taxExemt, this.ado(item.distance, item.basicArea))
+                OwnerMap.set(item.taxExemt, item.Tax)
             } else {
                 let oldData: number = OwnerMap.get(item.taxExemt) as number;
-                OwnerMap.set(item.taxExemt, this.ado(item.distance, item.basicArea) + oldData);
+                OwnerMap.set(item.taxExemt, item.Tax + oldData);
             }
         }
 
