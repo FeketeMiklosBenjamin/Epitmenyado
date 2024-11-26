@@ -1,4 +1,5 @@
 import Solution from "../Solution";
+import fs from "fs";
 
 describe("Solution osztály tesztek", () => {
     const instance = new Solution("utca.txt");
@@ -22,5 +23,9 @@ describe("Solution osztály tesztek", () => {
         expect(instance.moreDistanceTaxedStreet()).toContain("Kurta");
         expect(instance.moreDistanceTaxedStreet()).toContain("Rezeda");
         expect(instance.moreDistanceTaxedStreet()).toContain("Szepesi");
+    });
+    it("7. feladat ellenőrzése", () => {
+        instance.fileWrite("fizetendo.txt");
+        expect(fs.readFileSync("fizetendo.txt")).toEqual(fs.readFileSync("fizetendoOH.txt"));
     });
 })
